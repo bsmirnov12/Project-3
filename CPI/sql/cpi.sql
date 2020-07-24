@@ -51,6 +51,7 @@ create table CPI (
 	"Recreation" float,
 	"Education and reading" float,
 	"Alcoholic beverages" float,
-	"Tobacco products and smokers supplies" float
+	"Tobacco products and smokers supplies" float,
+	primary key ("Prov Id", "Year")
 );
 
