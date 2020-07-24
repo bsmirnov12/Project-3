@@ -53,7 +53,6 @@ def lint(s):
 # calls lint() first to clean names up
 # then, if necessary, shortens the name to 63 character - limit imposed by PostgreSQL
 def rename_cols(df):
-
     rename_dct = {}
 
     for col in df.columns:
@@ -70,7 +69,7 @@ def rename_cols(df):
     
 # Returns a string with generates SQL create table script for a given data frame
 def gen_create_table(df, table_name):
-    s = f"create table {table_name} (\n")
+    s = f"-- drop table {table_name};\n\ncreate table {table_name} (\n"
 
     for idx, col in enumerate(df.columns):
         if idx > 0:
@@ -87,15 +86,15 @@ def gen_create_table(df, table_name):
             print(f"Unknown type: {col_type}")
             break
         
-        s += f"\t\"{col}\" {sql_type}", end="")
+        s += f"\t\"{col}\" {sql_type}"
         
-    s += "\n);"
+    s += "\n);\n"
     return s
 
 # Checks a data frame for duplicate columns and prints them
 def print_duplicates(df):
     # Show data frame name if it has one
-    if hasattr(df, 'name')
+    if hasattr(df, 'name'):
         print(df.name)
     # Find duplicates after name cleaning
     col_lst = []

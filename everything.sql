@@ -4,7 +4,7 @@ select
 	o."LIB result", o."CPC result", o."NDP result", o."BQ result", o."GRN result", o."OTH result",
 	g."latitude", g."longitude", g."metroarea",
 	c."Fresh or frozen meat", c."Fresh or frozen poultry", c."Processed meat", c."Fish, seafood and other marine products",
-	c."Fresh milk", c."Butter", c.Cheese", c."Eggs", c."Bakery products", c."Cereal products", c."Fresh fruit",
+	c."Fresh milk", c."Butter", c."Cheese", c."Eggs", c."Bakery products", c."Cereal products", c."Fresh fruit",
 	c."Preserved fruit and fruit preparations", c."Fresh vegetables", c."Preserved vegetables and vegetable preparations",
 	c."Sugar and confectionery", c."Edible fats and oils", c."Coffee and tea", c."Non-alcoholic beverages",
 	c."Food purchased from restaurants", c."Rented accommodation", c."Homeowners replacement cost", c."Property taxes and other special charges",
