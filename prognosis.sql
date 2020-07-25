@@ -1,9 +1,8 @@
-DROP VIEW everything;
+DROP VIEW prognosis;
 
-CREATE VIEW everything AS
+CREATE VIEW prognosis AS
 select 
-	o."Year", o."FED Id", o."Winning Pid",
-	o."LIB result", o."CPC result", o."NDP result", o."BQ result", o."GRN result", o."OTH result",
+	p."FED Id", p."Winning Pid",
 	e.LIB_age, e.LIB_tenure, e.CPC_age, e.CPC_tenure, e.NDP_age, e.NDP_tenure, e.BQ_age, e.BQ_tenure, e.GRN_age, e.GRN_tenure,
 	g."Prov Id", g."latitude", g."longitude", g."metroarea",
 	c."Fresh or frozen meat", c."Fresh or frozen poultry", c."Processed meat", c."Fish, seafood and other marine products",
@@ -86,10 +85,13 @@ select
 	cr."employed labour force 15+ by mode of transportation walked",
 	cr."employed labour force 15+ by mode of transportation bicycle",
 	cr."employed...15+ by mode of transportation other methods FC108373"
-from outcomes as o
-left join elections as e on e."year" = o."Year"
-left join election_geography as g on o."Year" = g."Year" and o."FED Id" = g."FED Id"
-left join cpi as c on o."Year" = c."Year" and g."Prov Id" = c."Prov Id"
-left join unemployment as u on o."Year" = u."Year" and g."Prov Id" = u."Prov Id"
-left join election_census_ro as ecr on o."Year" = ecr.election_year
-left join census as cr on cr."Year" = ecr.census_year and cr."RO Year" = ecr.ro_year and cr."FED Id" = o."FED Id";
+from projection as p
+natural join today_elections as e
+left join (
+		select * from election_geography where "Year" = 2019
+	) as g on p."FED Id" = g."FED Id"
+left join cpi_202006 as c on g."Prov Id" = c."Prov Id"
+left join unemployment_202006 as u on g."Prov Id" = u."Prov Id"
+left join (
+		select * from census where "Year" = 2016
+	) as cr on p."FED Id" = cr."FED Id";
