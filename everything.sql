@@ -1,10 +1,11 @@
-DROP VIEW everything;
+-- DROP VIEW everything;
 
 CREATE VIEW everything AS
 select 
 	o."Year", o."FED Id",
 	g."Prov Id", o."Winning Pid",
 	o."LIB result", o."CPC result", o."NDP result", o."BQ result", o."GRN result", o."OTH result",
+	e.LIB_age, e.LIB_tenure, e.CPC_age, e.CPC_tenure, e.NDP_age, e.NDP_tenure, e.BQ_age, e.BQ_tenure, e.GRN_age, e.GRN_tenure,
 	g."latitude", g."longitude", g."metroarea",
 	c."Fresh or frozen meat", c."Fresh or frozen poultry", c."Processed meat", c."Fish, seafood and other marine products",
 	c."Fresh milk", c."Butter", c."Cheese", c."Eggs", c."Bakery products", c."Cereal products", c."Fresh fruit",
@@ -87,6 +88,7 @@ select
 	cr."employed labour force 15+ by mode of transportation bicycle",
 	cr."employed...15+ by mode of transportation other methods FC108373"
 from outcomes as o
+left join elections as e on e."year" = o."Year"
 left join election_geography as g on o."Year" = g."Year" and o."FED Id" = g."FED Id"
 left join cpi as c on o."Year" = c."Year" and g."Prov Id" = c."Prov Id"
 left join unemployment as u on o."Year" = u."Year" and g."Prov Id" = u."Prov Id"
